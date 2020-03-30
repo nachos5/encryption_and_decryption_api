@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block inline_styles %}
+<style>
+  th {
+    padding-left: 5px;
+    text-align: start;
+  }
+  td {
+    padding-left: 5px;
+    padding-right: 20px;
+  }
+</style>
+{% endblock inline_styles %}
+
+{% block content %}
+<div id="info">
+  <p>Welcome to this encryption & decryption API!</p>
+  <p>Routes:</p>
+  <table border="1">
+    <tr>
+      <th>Route</th>
+      <th>Method</th>
+      <th>Parameters</th>
+    </tr>
+    <tr>
+      <td>/rsa/generate_key</td>
+      <td>POST</td>
+      <td>key_size (valid choices are 1024, 2048 and 3072)</td>
+    </tr>
+  </table>
+</div>
+{% endblock content %}

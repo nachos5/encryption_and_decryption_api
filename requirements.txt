@@ -1,0 +1,2 @@
+# this file is for heroku
+-r ./requirements/prod.txt
