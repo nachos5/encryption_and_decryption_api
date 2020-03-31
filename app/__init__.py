@@ -6,5 +6,8 @@ from app import api
 
 try:
     app.config.from_envvar("CONFIG_OBJECT")
-except:
+except Exception as e:
+    print(e)
     app.config.from_object("config.DevelopmentConfig")
+
+print(app.config["SECRET_KEY"])
