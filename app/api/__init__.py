@@ -1,13 +1,8 @@
 from flask import render_template
-from flask_restful import Api
+from flask_restx import Api
 
 from app import app
 
-api = Api(app)
+api = Api(app, version="0.0", title="Encryption & Decryption API")
 
-from . import errors, rsa
-
-
-@app.route("/", methods=["GET"])
-def info():
-    return render_template("info.html")
+from . import rsa
