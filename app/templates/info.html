@@ -16,17 +16,27 @@
 {% block content %}
 <div id="info">
   <p>Welcome to this encryption & decryption API!</p>
-  <p>Routes:</p>
+  <p>Resources:</p>
   <table border="1">
     <tr>
-      <th>Route</th>
-      <th>Method</th>
+      <th>Resource</th>
+      <th>Methods</th>
       <th>Parameters</th>
     </tr>
     <tr>
-      <td>/rsa/generate_key</td>
+      <td>/rsa/key</td>
       <td>POST</td>
-      <td>key_size (valid choices are 1024, 2048 and 3072)</td>
+      <td>key_size: int</td>
+    </tr>
+    <tr>
+      <td>/rsa/encrypt</td>
+      <td>POST</td>
+      <td>public_key: string, message: string</td>
+    </tr>
+    <tr>
+      <td>/rsa/decrypt</td>
+      <td>POST</td>
+      <td>private_key: string, encrypted_message: string</td>
     </tr>
   </table>
 </div>
