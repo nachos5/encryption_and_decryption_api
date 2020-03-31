@@ -7,7 +7,7 @@ class Config(object):
     DEBUG = False
     TESTING = False
     CSRF_ENABLED = True
-    SECRET_KEY = os.environ.get("SECRET_KEY", "this-really-needs-to-be-changed")
+    SECRET_KEY = os.environ.get("SECRET_KEY", "change-in-production")
     BUNDLE_ERRORS = True
 
 
