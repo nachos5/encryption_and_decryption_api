@@ -8,6 +8,7 @@ from Crypto.PublicKey import RSA
 from Crypto.Cipher import PKCS1_OAEP
 
 from . import api
+from ..utils import get_info
 
 allowed_key_size_choices = [1024, 2048, 3072]
 rsa_key_parser = reqparse.RequestParser()
@@ -21,6 +22,9 @@ rsa_key_parser.add_argument(
 
 
 class RSAKey(Resource):
+    def get(self):
+        return get_info("rsa", self.__class__.__name__)
+
     def post(self):
         args = rsa_key_parser.parse_args()
         key_size = args["key_size"]
@@ -42,6 +46,9 @@ rsa_encrypt_parser.add_argument("message", required=True)
 
 
 class RSAEncrypt(Resource):
+    def get(self):
+        return get_info("rsa", self.__class__.__name__)
+
     def post(self):
         args = rsa_encrypt_parser.parse_args()
         public_key = RSA.importKey(args["public_key"])
@@ -62,6 +69,9 @@ rsa_decrypt_parser.add_argument("encrypted_message", required=True)
 
 
 class RSADecrypt(Resource):
+    def get(self):
+        return get_info("rsa", self.__class__.__name__)
+
     def post(self):
         args = rsa_decrypt_parser.parse_args()
         private_key = RSA.import_key(args["private_key"])

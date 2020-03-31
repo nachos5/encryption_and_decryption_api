@@ -1,0 +1,5 @@
+{
+  "RSAKey": "RSA is an asymmetric encryption algorithm, which means that two different keys, public and private, are required. This tools returns PEM encoded keys which means that they are in base64 format.",
+  "RSAEncrypt": "Encrypt your message by using a public key, the output is in base64 format.",
+  "RSADecrypt": "Decrypt your encrypted base64 message by using the corresponding private key to the public key the message was encrypted with."
+}

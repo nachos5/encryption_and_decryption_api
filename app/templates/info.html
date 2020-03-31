@@ -20,21 +20,43 @@
   <table border="1">
     <tr>
       <th>Resource</th>
-      <th>Methods</th>
+      <th>Description</th>
+      <th>Method</th>
       <th>Parameters</th>
     </tr>
     <tr>
       <td>/rsa/key</td>
+      <td>Info</td>
+      <td>GET</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>/rsa/key</td>
+      <td>Generate a PEM encoded key pair</td>
       <td>POST</td>
       <td>key_size: int</td>
     </tr>
     <tr>
       <td>/rsa/encrypt</td>
+      <td>Info</td>
+      <td>GET</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>/rsa/encrypt</td>
+      <td>RSA encryption</td>
       <td>POST</td>
       <td>public_key: string, message: string</td>
     </tr>
     <tr>
       <td>/rsa/decrypt</td>
+      <td>Info</td>
+      <td>GET</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>/rsa/decrypt</td>
+      <td>RSA decryption</td>
       <td>POST</td>
       <td>private_key: string, encrypted_message: string</td>
     </tr>
