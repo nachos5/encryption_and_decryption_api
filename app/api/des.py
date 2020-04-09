@@ -13,18 +13,18 @@ from . import api
 # 64 bit (8 bytes or 8 ASCII charactes) key
 
 allowed_modes = ['ECB', 'CBC', 'CFB', 'OFB']
-allowed_iv_modes = ['base64', 'utf8', 'utf-8']
+allowed_iv_modes = ['base64', 'utf-8']
 
 des_encrypt_parser = reqparse.RequestParser()
 des_encrypt_parser.add_argument("key", required=True, type=str)
-des_encrypt_parser.add_argument("mode", required=True, type=str)
+des_encrypt_parser.add_argument("mode", required=True, type=str, choices=allowed_modes)
 des_encrypt_parser.add_argument("iv", type=str)
 des_encrypt_parser.add_argument("message", required=True, type=str)
 
 class DESEncrypt(Resource):
   @api.expect(des_encrypt_parser)
   @api.doc(response={200: "Success", 400: "Validation Error"})
-  def post(self):
+  def get(self):
     args = des_encrypt_parser.parse_args()
     key = args["key"]
     mode = args["mode"].upper()
@@ -86,15 +86,15 @@ class DESEncrypt(Resource):
 
 des_decrypt_parser = reqparse.RequestParser()
 des_decrypt_parser.add_argument("key", required=True, type=str)
-des_decrypt_parser.add_argument("mode", required=True, type=str)
-des_decrypt_parser.add_argument("iv_mode", type=str)
+des_decrypt_parser.add_argument("mode", required=True, type=str, choices=allowed_modes)
+des_decrypt_parser.add_argument("iv_mode", type=str, choices=allowed_iv_modes)
 des_decrypt_parser.add_argument("iv", type=str)
 des_decrypt_parser.add_argument("encrypted_message", required=True, type=str, help="Encrypted message in base64 format.")
 
 class DESDecrypt(Resource):
   @api.expect(des_decrypt_parser)
   @api.doc(response={200: "Success", 400: "Validation Error"})
-  def post(self):
+  def get(self):
     args = des_decrypt_parser.parse_args()
     key = args["key"]
     mode = args["mode"].upper()

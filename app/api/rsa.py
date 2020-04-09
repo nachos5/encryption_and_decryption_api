@@ -16,7 +16,7 @@ rsa_encrypt_parser.add_argument("message", required=True, type=str)
 class RSAEncrypt(Resource):
   @api.expect(rsa_encrypt_parser)
   @api.doc(responses={200: "Success", 400: "Validation Error"})
-  def post(self):
+  def get(self):
     args = rsa_encrypt_parser.parse_args()
     try:
       public_key_str = args["public_key"].replace("\\n", "\n") # for sending through URL
@@ -47,7 +47,7 @@ rsa_decrypt_parser.add_argument(
 class RSADecrypt(Resource):
   @api.expect(rsa_decrypt_parser)
   @api.doc(responses={200: "Success", 400: "Validation Error"})
-  def post(self):
+  def get(self):
     args = rsa_decrypt_parser.parse_args()
     try:
       private_key_str = args["private_key"].replace("\\n", "\n") # for sending through URL

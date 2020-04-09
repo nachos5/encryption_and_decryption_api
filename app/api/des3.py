@@ -19,20 +19,20 @@ from . import api
 # Option 3: key_1 == key_2 == key_3 -> Triple DES degrades to Single DES (not allowed)
 
 allowed_modes = ['ECB', 'CBC', 'CFB', 'OFB']
-allowed_iv_modes = ['base64', 'utf8', 'utf-8']
+allowed_iv_modes = ['base64', 'utf-8']
 
 des3_encrypt_parser = reqparse.RequestParser()
 des3_encrypt_parser.add_argument("key_1", required=True, type=str)
 des3_encrypt_parser.add_argument("key_2", required=True, type=str)
 des3_encrypt_parser.add_argument("key_3", required=True, type=str)
-des3_encrypt_parser.add_argument("mode", required=True, type=str)
+des3_encrypt_parser.add_argument("mode", required=True, type=str, choices=allowed_modes)
 des3_encrypt_parser.add_argument("iv", type=str)
 des3_encrypt_parser.add_argument("message", required=True, type=str)
 
 class DES3Encrypt(Resource):
   @api.expect(des3_encrypt_parser)
   @api.doc(response={200: "Success", 400: "Validation Error"})
-  def post(self):
+  def get(self):
     args = des3_encrypt_parser.parse_args()
     key_1 = args["key_1"]
     key_2 = args["key_2"]
@@ -100,15 +100,15 @@ des3_decrypt_parser = reqparse.RequestParser()
 des3_decrypt_parser.add_argument("key_1", required=True, type=str)
 des3_decrypt_parser.add_argument("key_2", required=True, type=str)
 des3_decrypt_parser.add_argument("key_3", required=True, type=str)
-des3_decrypt_parser.add_argument("mode", required=True, type=str)
-des3_decrypt_parser.add_argument("iv_mode", type=str)
+des3_decrypt_parser.add_argument("mode", required=True, type=str, choices=allowed_modes)
+des3_decrypt_parser.add_argument("iv_mode", type=str, choices=allowed_iv_modes)
 des3_decrypt_parser.add_argument("iv", type=str)
 des3_decrypt_parser.add_argument("encrypted_message", required=True, type=str, help="Encrypted message in base64 format.")
 
 class DES3Decrypt(Resource):
   @api.expect(des3_decrypt_parser)
   @api.doc(response={200: "Success", 400: "Validation Error"})
-  def post(self):
+  def get(self):
     args = des3_decrypt_parser.parse_args()
     key_1 = args["key_1"]
     key_2 = args["key_2"]
