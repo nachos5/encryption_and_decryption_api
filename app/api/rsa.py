@@ -9,35 +9,6 @@ from Crypto.Cipher import PKCS1_OAEP
 
 from . import api
 
-allowed_key_size_choices = [1024, 2048, 3072]
-rsa_key_parser = reqparse.RequestParser()
-rsa_key_parser.add_argument(
-    "key_size",
-    required=True,
-    type=int,
-    choices=allowed_key_size_choices,
-    help="Key size in bits.",
-)
-
-
-class RSAKey(Resource):
-    @api.expect(rsa_key_parser)
-    @api.doc(responses={200: "Success", 400: "Validation Error"})
-    def post(self):
-        args = rsa_key_parser.parse_args()
-        key_size = args["key_size"]
-
-        key_pair = RSA.generate(key_size)
-        public_key = key_pair.publickey().exportKey("PEM")
-        private_key = key_pair.exportKey("PEM")
-
-        public_key_str = public_key.decode("ascii")
-        private_key_str = private_key.decode("ascii")
-        data = dict(public_key=public_key_str, private_key=private_key_str)
-
-        return jsonify(data)
-
-
 rsa_encrypt_parser = reqparse.RequestParser()
 rsa_encrypt_parser.add_argument("public_key", required=True, type=str)
 rsa_encrypt_parser.add_argument("message", required=True, type=str)
@@ -46,13 +17,13 @@ rsa_encrypt_parser.add_argument("message", required=True, type=str)
 class RSAEncrypt(Resource):
     @api.expect(rsa_encrypt_parser)
     @api.doc(responses={200: "Success", 400: "Validation Error"})
-    def post(self):
+    def get(self):
         args = rsa_encrypt_parser.parse_args()
         try:
             public_key_str = args["public_key"].replace(
                 "\\n", "\n"
             )  # for sending through URL
-            public_key = RSA.importKey(public_key_str)
+            public_key = RSA.import_key(public_key_str)
         except Exception as e:
             print(e)
             abort(400, "Invalid public key format.")
@@ -62,7 +33,7 @@ class RSAEncrypt(Resource):
         encrypted = encryptor.encrypt(str.encode(message))
 
         # we return a base64 representation
-        data = dict(encrypted_message=base64.b64encode(encrypted).decode("ascii"))
+        data = {"encrypted_message": base64.b64encode(encrypted).decode("ascii")}
 
         return jsonify(data)
 
@@ -80,13 +51,13 @@ rsa_decrypt_parser.add_argument(
 class RSADecrypt(Resource):
     @api.expect(rsa_decrypt_parser)
     @api.doc(responses={200: "Success", 400: "Validation Error"})
-    def post(self):
+    def get(self):
         args = rsa_decrypt_parser.parse_args()
         try:
             private_key_str = args["private_key"].replace(
                 "\\n", "\n"
             )  # for sending through URL
-            private_key = RSA.import_key(private_key_str)
+            private_key = RSA.importKey(private_key_str)
         except Exception as e:
             print(e)
             abort(400, "Invalid private key format.")
@@ -102,6 +73,5 @@ class RSADecrypt(Resource):
 
 
 ns = api.namespace("rsa", description="RSA operations")
-ns.add_resource(RSAKey, "/key")
 ns.add_resource(RSAEncrypt, "/encrypt")
 ns.add_resource(RSADecrypt, "/decrypt")
