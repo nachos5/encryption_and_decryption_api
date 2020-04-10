@@ -68,9 +68,12 @@ class RSAEncrypt(Resource):
 
 
 rsa_decrypt_parser = reqparse.RequestParser()
-rsa_decrypt_parser.add_argument("private_key", required=True)
+rsa_decrypt_parser.add_argument("private_key", required=True, type=str)
 rsa_decrypt_parser.add_argument(
-    "encrypted_message", required=True, help="Encrypted message in base64 format."
+    "encrypted_message",
+    required=True,
+    type=str,
+    help="Encrypted message in base64 format.",
 )
 
 

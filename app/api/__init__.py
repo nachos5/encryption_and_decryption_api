@@ -1,4 +1,3 @@
-from flask import render_template
 from flask_restx import Api
 
 from app import app
