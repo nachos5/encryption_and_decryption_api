@@ -4,8 +4,4 @@ from app import app
 
 api = Api(app, version="0.0", title="Encryption & Decryption API")
 
-from . import rsa
-from . import des
-from . import des3
-from . import key
-from . import random
+from . import aes, des, des3, key, random, rsa, descriptions
