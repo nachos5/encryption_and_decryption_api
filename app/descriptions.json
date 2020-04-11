@@ -1,6 +1,10 @@
 {
-  "aes": "aes, todo",
-  "des": "des, todo",
-  "des3": "des3, todo",
-  "rsa": "rsa, todo"
+  "aes": [
+    "The Advanced Encryption Standard, or AES, is a symmetric block cipher chosen by the U.S. government to protect classified information and is implemented in software and hardware throughout the world to encrypt sensitive data.",
+    "AES comprises three block ciphers: AES-128, AES-192 and AES-256. AES-128 uses a 128-bit key length to encrypt/decrypt a block of messages, AES-192 uses a 192-bit key length and AES-256 a 256-bit key length to encrypt/decrypt messages. Each cipher encrypts and decrypts data in blocks of 128 bits using cryptographic keys of 128-, 192- and 256-bits, respectively.",
+    "Symmetric (also known as secret-key) ciphers use the same key for encrypting and decrypting, so the sender and the receiver must both know, and use, the same secret key. All key lengths are deemed sufficient to protect classified information up to the \"Secret\" level with \"Top Secret\" information requiring either 192- or 256-bit key lengths. There are 10 rounds for 128-bit keys, 12 rounds for 192-bit keys and 14 rounds for 256-bit keys. A round consists of several processing steps that include substitution, transposition and mixing of the input plaintext and transform it into the final output of ciphertext."
+  ],
+  "des": ["des, todo"],
+  "des3": ["des3, todo"],
+  "rsa": ["rsa, todo"]
 }

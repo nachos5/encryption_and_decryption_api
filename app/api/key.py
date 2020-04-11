@@ -109,7 +109,7 @@ aes_key_parser.add_argument("passphrase", required=True, type=str)
 class AESKey(Resource):
     @api.expect(aes_key_parser)
     @api.doc(responses={200: "Success", 400: "Validation Error"})
-    def get(self):
+    def post(self):
         args = aes_key_parser.parse_args()
         salt = get_random_bytes(int(args["key_size"] / 8))
         key = PBKDF2(args["passphrase"], salt)
