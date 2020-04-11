@@ -29,7 +29,10 @@ class AESEncrypt(Resource):
     @api.doc(responses={200: "Success", 400: "Validation Error", 500: "Internal Error"})
     def post(self):
         args = aes_encrypt_parser.parse_args()
-        key_bytes = base64.b64decode(args["key"])
+        try:
+            key_bytes = base64.b64decode(args["key"])
+        except:
+            abort(400, "The key has to be in valid base64 format.")
         encoded_message = args["message"].encode("utf-8")
         padding = pad(encoded_message, AES.block_size)
         mode = args["mode"]
@@ -78,8 +81,15 @@ class AESDecrypt(Resource):
     @api.doc(responses={200: "Success", 400: "Validation Error", 500: "Internal Error"})
     def post(self):
         args = aes_decrypt_parser.parse_args()
-        key_bytes = base64.b64decode(args["key"])
-        encrypted_message_bytes = base64.b64decode(args["encrypted_message"])
+        try:
+            key_bytes = base64.b64decode(args["key"])
+        except:
+            abort(400, "The key has to be in valid base64 format.")
+        try:
+            encrypted_message_bytes = base64.b64decode(args["encrypted_message"])
+        except:
+            abort(400, "The message has to be in valid base64 format.")
+
         mode = args["mode"]
 
         try:
@@ -107,7 +117,7 @@ class AESDecrypt(Resource):
                 )
         except Exception as e:
             print(e)
-            abort(500, "Internal Error")
+            abort(500, "Internal Error. Make sure you chose the right mode.")
 
         return final_bytes.decode("utf-8")
 
