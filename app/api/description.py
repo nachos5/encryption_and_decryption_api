@@ -11,25 +11,24 @@ json_path = os.path.join(
 )
 
 
-def read_json(algorithm):
+def read_json(subject):
     with open(json_path, "r") as json_file:
         data = json.load(json_file)
-        return data[algorithm]
+        return data[subject]
 
 
 parser = reqparse.RequestParser()
-algs = ["aes", "des", "des3", "rsa"]
+subjects = ["aes", "des", "desImplementation", "des3", "des3Implementation", "rsa", "mode", "iv", "ecb", "cbc", "cfb", "ofb", "ctr"]
 parser.add_argument(
-    "algorithm", required=True, choices=algs,
+    "subject", required=True, choices=subjects,
 )
-
 
 class Description(Resource):
     @api.expect(parser)
     def get(self):
         args = parser.parse_args()
-        alg = args["algorithm"]
-        return jsonify(read_json(alg))
+        subject = args["subject"]
+        return jsonify(read_json(subject))
 
 
 ns = api.namespace("description", description="Descriptions for the algorithms")

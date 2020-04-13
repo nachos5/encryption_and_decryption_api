@@ -4,7 +4,48 @@
     "AES comprises three block ciphers: AES-128, AES-192 and AES-256. AES-128 uses a 128-bit key length to encrypt/decrypt a block of messages, AES-192 uses a 192-bit key length and AES-256 a 256-bit key length to encrypt/decrypt messages. Each cipher encrypts and decrypts data in blocks of 128 bits using cryptographic keys of 128-, 192- and 256-bits, respectively.",
     "Symmetric (also known as secret-key) ciphers use the same key for encrypting and decrypting, so the sender and the receiver must both know, and use, the same secret key. All key lengths are deemed sufficient to protect classified information up to the \"Secret\" level with \"Top Secret\" information requiring either 192- or 256-bit key lengths. There are 10 rounds for 128-bit keys, 12 rounds for 192-bit keys and 14 rounds for 256-bit keys. A round consists of several processing steps that include substitution, transposition and mixing of the input plaintext and transform it into the final output of ciphertext."
   ],
-  "des": ["des, todo"],
-  "des3": ["des3, todo"],
-  "rsa": ["rsa, todo"]
+  "des": [
+    "The Data Encryption Standard, or DES, is a symmetric block cipher, it was developed in the early 1970s at IBM, was later slightly modified in 1976 to strengthen it against differential cryptanalysis, but weakened against brute-force attacks, this version became the official version, released in 1977.",
+    "DES has always been considered insecure due to the feasibility of brute-force-attacks, in 2019 the software hashcat added in DES brute force searching, where a Nvidia GeForce GTX 1080 recovers a key in an average of 15 days, and with 8 GTX 1080 TI, the recovery averaged under 2 days. Also in 2017 a chosen-plaintext attack using a rainbow table recovered a DES key in 25 seconds, tho a limited set of rainbow tables have been made available.",
+    "DES is a block cipher and therefore takes a fixed-length string of plaintext, the blocksize being 64 bits, this is mitigated with padding. The key size is 64 bits, however the actual size of the key is actually 56 bits, since 8 bits are used solely for checking parity, and are thereafter discarded.",
+    "DES by itself, like other block ciphers is not a secure means of encryption, but must instead be used in a mode of operation."
+  ],
+  "desImplementation": [
+    "About this implementation: There is no key or iv generation implemented for this algorithm, the only requirement is that the key and the iv are 64 bits, which are 8 bytes or 8 ASCII characters, the auto fill option simply assembles a random assortment of 8 ASCII printable characters."
+  ],
+  "des3": [
+    "Triple DES, or 3DES, is a symmetric block cipher, which applies the DES cipher algorithm 3 times to each data block.",
+    "There are 3 key sizes available, 192, 128 and 64 bits, which translate into the actual key size 168, 112 and 56 bits due to the parity bits. There are 3 keying options to choose from when selecting the keys for 3DES.",
+    "Keying option 1: All 3 keys are independent, the strongest of the 3 options with 3 x 56 = 168 bit key",
+    "Keying option 2: Key1 and key2 are independent but key3 = key1, this provides 2 x 56 = 112 bit key",
+    "Keying option 3: All 3 keys are indentical, this method is backward compatible with DES, but 3DES effectively degrades to single DES, providing 1 x 56 = 56 bit key. This option is not supported and was either never allowed or is no longer allowed by any standard."
+  ],
+  "des3Implementation": [
+    "About this implementation: There is no key or iv generation implemented for this algorithm, the only requirement is that each key and the iv are 64 bits, which are 8 bytes or 8 ASCII characters, the auto fill option simply assembles a random assortment of 8 ASCII printable characters."
+  ],
+  "rsa": [
+    "Rivest-Shamir-Adleman, or RSA, is a public-key cryptosystem, named after the initial letters of the surnames of Ron Rivest, Adi Shamir and Leonard Adleman, who publicly described the algorithm in 1977.",
+    "RSA produces two asymetric keys, one public key, used to encrypt the plaintext, and one private key, used to decrypt the ecrypted message. Anyone can see and use the public key to encrypt plaintext, however the private key must always remain hidden due to the fact that it's the only way to decrypt an encrypted message that was encrypted by the accommodating public key."
+  ],
+  "mode": [
+    "Block cipher mode of operation, commonly reffered to as mode of operation is an algorithm that uses a block cipher to provide information security such as confidentiality or authenticity. Among the most common modes are ECB, CBC, CFB, OFB, CTR"
+  ],
+  "iv": [
+    "Initalization vector, or IV is used to ensure distinct ciphertexts are produced even when the same plaintext is encrypted multiple times independently with the same key"
+  ],
+  "ecb": [
+    "Electronic codebook, or ECB, is semantically insecure, it divides the message into blocks and encrypts each of those blocks, however identical plaintext is encrypted into identical ciphertext blocks. This mode needs the plaintext to be padded to a multiple of the cipher block size."
+  ],
+  "cbc": [
+    "Cipher block chaining, or CBC, in this mode each block of plaintext is XORed with the previous ciphertext block before being encrypted. Resulting in each ciphertext block depending upon all plaintext blocks processed before it. To avoid getting identical cipertext blocks for indentical plaintext an initialization vector must be used in the first block. This mode needs the plaintext to be padded to a multiple of the cipher block size."
+  ],
+  "cfb": [
+    "Cipher feedback, or CFB, is a mode which turns the block cipher into a self-synchronizing stream cipher. Each byte of plaintext is XORed with a byte taken from a keystream. This keystream is obtained on a per-segment basis, the plaintext is broken up in segments, from 1 byte up to the cipher block size. For each segment, the keystream is obtained by encrypting with the block cipher the last piece of ciphertext produced so far. This process is started with the initialization vector"
+  ],
+  "ofb": [
+    "Output feedback, or OFB, is a mode which turns the block cipher into a synchronous stream cipher. It generates keystream blocks, which are then XORed with the plaintext blocks to get the ciphertext. The keystream is obtained by recursibely encrypting the initalization vector"
+  ],
+  "ctr": [
+    "Counter, or CTR, is a mode which turns the block cipher into a stream cipher. It generates keystream blocks which are then XORed with the plaintext blocks to get the ciphertext. It generates the next keystream block by encrypting successive values of a \"counter\". This counter can be any function which produces a sequence which is guaranteed not to repeat for a long time, this can be achieved by an increment-by-one counter, which is the most popular method. In our case the keystream is generated by encrypting a sequence of counter blocks (these are the concatination of a fixed nonce (serving the same purpose as the initalization vector) and an increment-by-one counter) with ECB"
+  ]
 }
