@@ -21,7 +21,7 @@ rsa_key_parser.add_argument(
 class RSAKey(Resource):
     @api.expect(rsa_key_parser)
     @api.doc(responses={200: "Success", 400: "Validation Error"})
-    def get(self):
+    def post(self):
         args = rsa_key_parser.parse_args()
         key_size = args["key_size"]
 
@@ -50,7 +50,7 @@ dsa_key_parser.add_argument(
 class DSAKey(Resource):
     @api.expect(dsa_key_parser)
     @api.doc(responses={200: "Success", 400: "Validation Error"})
-    def get(self):
+    def post(self):
         args = dsa_key_parser.parse_args()
         key_size = args["key_size"]
 
@@ -79,7 +79,7 @@ ecc_key_parser.add_argument(
 class ECCKey(Resource):
     @api.expect(ecc_key_parser)
     @api.doc(responses={200: "Success", 400: "Validation Error"})
-    def get(self):
+    def post(self):
         args = ecc_key_parser.parse_args()
         curve = args["curve"]
 
